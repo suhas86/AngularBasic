@@ -1,0 +1,25 @@
+
+  <input type="text" ng-model="query" class="form-control" placeholder="Filter by Team Name or Date or Score">
+  <br>
+    <table ng-init="mainPage.getMatches()" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Team 1</th>
+        <th>Team 2</th>
+        <th>Date</th>
+        <th>Score</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="match in mainPage.matchesSelected | filter: query ">
+        <td>{{match.team1.name}}</td>
+        <td>{{match.team2.name}}</td>
+        <td>{{match.date}}</td>
+        <td>{{match.score1}} - {{match.score2}}</td>
+        <td><a href="">View</a></td>
+      </tr>
+    </tbody>
+  </table>
+    
+
