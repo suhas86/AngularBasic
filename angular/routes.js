@@ -7,6 +7,12 @@ myApp.config(['$routeProvider',function($routeProvider){
         	
         controller 		: 'mainPageController'
 	}).
+	when('/view-match',{
+		templateUrl		: 'views/match-detail.html',
+        	
+        controller 		: 'matchController',
+        controllerAs 	: 'matchPage'
+	}).
 	otherwise(
             {
                 //redirectTo:'/'

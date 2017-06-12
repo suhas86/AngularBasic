@@ -1,8 +1,8 @@
 var myApp = angular.module('footballApp', ['ngRoute']);
 
 var matches=[];
-myApp.controller('mainPageController',['$http','$routeParams',function($http,
-  $routeParams){
+myApp.controller('mainPageController',['$http','$routeParams','matchService','$location',function($http,
+  $routeParams,matchService,$location){
 
 	//create a context
   var main = this;
@@ -31,16 +31,42 @@ myApp.controller('mainPageController',['$http','$routeParams',function($http,
         console.log(main.selectedItem);
         main.loadAllMatches(main.selectedItem);
     }
+    this.viewMatchDetails=function(item){
+      console.log("Inside");
+      console.log(item);
+      matchService.addMatch(item);
+      $location.path('/view-match');
+    }
   }
 
 }]);
 
-myApp.controller('matchController',['$http',function($http){
+myApp.controller('matchController',['$http','matchService',function($http,
+  matchService){
   var main = this;
-  this.matchesSelected=[];
-  this.getMatches=function(){
+  this.matchesSelected;
+  this.getMatchDetails=function(){
       console.log("Inside");
-      main.matchesSelected=matches[0].matches;
-      console.log(main.matchesSelected);
+     main.matchesSelected= matchService.getMatch()
+     console.log(main.matchesSelected);
     }
 }]);
+
+
+myApp.service('matchService', function() {
+  var match = [];
+
+  var addMatch = function(newObj) {
+      match=newObj;
+  };
+
+  var getMatch = function(){
+      return match;
+  };
+
+  return {
+    addMatch: addMatch,
+    getMatch: getMatch
+  };
+
+});
