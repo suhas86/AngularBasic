@@ -16,7 +16,8 @@
         <td>{{match.team1.name}}</td>
         <td>{{match.team2.name}}</td>
         <td>{{match.date}}</td>
-        <td>{{match.score1}} - {{match.score2}}</td>
+         <td ng-if="match.score1!=null">{{match.score1}} - {{match.score2}}</td>
+        <td ng-if="match.score1==null">NA</td>
         <td><a href="" ng-click="mainPage.viewMatchDetails(match)">View</a></td>
       </tr>
     </tbody>
