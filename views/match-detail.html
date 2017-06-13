@@ -1,5 +1,35 @@
 <div ng-init="matchPage.getMatchDetails()">
 <h3>Match Details</h3>
-<p><b>Team 1 </b>{{matchPage.matchesSelected.team1.name}}</p>
-<p><b>Team 2 </b>{{matchPage.matchesSelected.team2.name}}</p>
+<p>Match Date {{matchPage.matchesSelected.date}}</p>
+<div class="row">
+    <div class="col-md-9">
+        <table class="table">
+    <thead>
+      <tr>
+          <th></th>
+        <th>Team 1</th>
+        <th>Team 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Name</b></td>
+        <td>{{matchPage.matchesSelected.team1.name}}</td>
+        <td>{{matchPage.matchesSelected.team2.name}}</td>
+      </tr>
+       <tr>
+        <td><b>Code</b></td>
+        <td>{{matchPage.matchesSelected.team1.code}}</td>
+        <td>{{matchPage.matchesSelected.team2.code}}</td>
+      </tr>
+      <tr>
+        <td><b>Score</b></td>
+        <td>{{matchPage.matchesSelected.score1}}</td>
+        <td>{{matchPage.matchesSelected.score2}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
 </div>
