@@ -24,8 +24,10 @@
       </tr>
       <tr>
         <td><b>Score</b></td>
-        <td>{{matchPage.matchesSelected.score1}}</td>
-        <td>{{matchPage.matchesSelected.score2}}</td>
+        <td ng-if="matchPage.matchesSelected.score1!=null">{{matchPage.matchesSelected.score1}}</td>
+        <td ng-if="matchPage.matchesSelected.score2!=null">{{matchPage.matchesSelected.score2}}</td>
+        <td ng-if="matchPage.matchesSelected.score1==null">Yet to happen</td>
+        <td ng-if="matchPage.matchesSelected.score2==null"></td>
       </tr>
     </tbody>
   </table>
