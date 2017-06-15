@@ -13,8 +13,12 @@
     </thead>
     <tbody>
       <tr ng-repeat="match in mainPage.matchesSelected | filter: query ">
-        <td>{{match.team1.name}}</td>
-        <td>{{match.team2.name}}</td>
+        <td>
+        <a  ng-href="#/team/{{match.team1.code}}/{{mainPage.selectedDate}}" type="button" class="btn btn-link">{{match.team1.name}}</a>
+        </td>
+        <td>
+        <a  ng-href="#/team/{{match.team2.code}}/{{mainPage.selectedDate}}" type="button" class="btn btn-link">{{match.team2.name}}</a>
+        </td>
         <td>{{match.date}}</td>
          <td ng-if="match.score1!=null">{{match.score1}} - {{match.score2}}</td>
         <td ng-if="match.score1==null">NA</td>

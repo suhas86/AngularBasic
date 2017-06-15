@@ -24,7 +24,7 @@
     </li></ul>
     
       <ul ng-repeat="item in mainPage.rounds">
-        <li><a  ng-href="#/match/{{$index}}" type="button" class="btn btn-link">{{item.name}}</a></li>
+        <li><a  ng-href="#/match/{{$index}}/{{mainPage.selectedItem}}" type="button" class="btn btn-link">{{item.name}}</a></li>
       </ul>
     </div>
     <div class="col-md-9">

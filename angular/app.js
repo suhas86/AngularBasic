@@ -10,7 +10,7 @@ myApp.controller('mainPageController',['$http','$routeParams','matchService','$l
   this.matchesSelected=[];
   this.selectedItem="2015-16";
   this.baseUrl="https://raw.githubusercontent.com/openfootball/football.json/master";
-
+  this.selectedDate;
   this.loadAllMatches=function(date){
   	$http({
         method: 'GET',
@@ -25,6 +25,7 @@ myApp.controller('mainPageController',['$http','$routeParams','matchService','$l
 
       this.getMatches=function(){
         this.roundId = $routeParams.matchId;
+        main.selectedDate=$routeParams.dateSelected;
         main.matchesSelected=main.rounds[this.roundId].matches;
     }
      this.update=function(){
@@ -50,6 +51,70 @@ myApp.controller('matchController',['$http','matchService',function($http,
      main.matchesSelected= matchService.getMatch()
      console.log(main.matchesSelected);
     }
+}]);
+
+//Team Controller
+myApp.controller('teamPageController',['$http','$routeParams','$filter',function($http,
+  $routeParams,$filter){
+  var main = this;
+   this.baseUrl="https://raw.githubusercontent.com/openfootball/football.json/master";
+  this.date=$routeParams.dateSelected;
+  this.code=$routeParams.key;
+  this.matchArray = [];
+  this.teamName;
+  this.played;
+  this.noOfWins = 0;
+  this.noOfLoss=0;
+  this.noOfDraws = 0;
+  this.noOfGoals = 0;
+  this.noOfGoalsAgainst = 0;
+  $http({
+        method: 'GET',
+        url: main.baseUrl+'/'+main.date+'/en.1.json'
+      }).then(function successCallback(response){
+        main.rounds=response.data.rounds;
+        matches=response.data.rounds;
+        //Logic to get all the matches list
+        angular.forEach(main.rounds, function (value, key) {
+
+        angular.forEach(value.matches, function (value, key) {
+          main.matchArray.push(value);
+
+        });
+      });
+
+        //Logic to get Team details using filters
+        main.ListOfMatches = main.matchArray.filter(function (team) {
+        if (team.team1.code === main.code) {
+          main.teamName=team.team1.name;
+          if (main.noOfGoals + team.score1 > main.noOfGoals + team.score2) {
+            main.noOfWins = main.noOfWins + 1;
+          } else if (main.noOfGoals + team.score1 == main.noOfGoals + team.score2) {
+            main.noOfDraws = main.noOfDraws + 1;
+          }
+          main.noOfGoals = main.noOfGoals + team.score1;
+          main.noOfGoalsAgainst = main.noOfGoalsAgainst + team.score2;
+          return team;
+        } else if (team.team2.code == main.code) {
+          main.teamName=team.team1.name;
+          if (main.noOfGoals + team.score2 > main.noOfGoals + team.score1) {
+            main.noOfWins = main.noOfWins + 1;
+          } else if (main.noOfGoals + team.score1 == main.noOfGoals + team.score2) {
+            main.noOfDraws = main.noOfDraws + 1;
+          }
+          main.noOfGoals = main.noOfGoals + team.score2;
+          main.noOfGoalsAgainst = main.noOfGoalsAgainst + team.score1;
+          return team;
+        }
+        
+      });
+       main.played=main.ListOfMatches.length;
+       main.noOfLoss=(main.ListOfMatches.length)-(main.noOfWins)-(main.noOfDraws); 
+
+      },function errorCallback(response){
+
+      });
+  
 }]);
 
 

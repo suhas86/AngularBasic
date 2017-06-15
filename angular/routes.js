@@ -2,7 +2,7 @@ myApp.config(['$routeProvider',function($routeProvider){
 	$routeProvider
 	.when('/',{
 		template	: '<h1>Welcome select Match Play</h1>'
-	}).when('/match/:matchId',{
+	}).when('/match/:matchId/:dateSelected',{
 		templateUrl		: 'views/index-view.html',
         	
         controller 		: 'mainPageController'
@@ -12,6 +12,12 @@ myApp.config(['$routeProvider',function($routeProvider){
         	
         controller 		: 'matchController',
         controllerAs 	: 'matchPage'
+	}).
+	when('/team/:key/:dateSelected',{
+		templateUrl		: 'views/team-detail.html',
+        	
+        controller 		: 'teamPageController',
+        controllerAs 	: 'teamPage'
 	}).
 	otherwise(
             {
